@@ -1,8 +1,10 @@
 import React from 'react';
+import { Loader } from 'components/Loader/Loader';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchMovies } from 'services/Api';
+import Notiflix from 'notiflix';
 
 function Homepage() {
   const [movies, setMovies] = useState([]);
@@ -14,7 +16,7 @@ function Homepage() {
       try {
         setIsLoading(true);
         const movies = await fetchMovies();
-        setMovies(movies);
+        setMovies(movies.results);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -22,27 +24,26 @@ function Homepage() {
       }
     };
     getMovies();
-  }, [movies, error]);
+  }, [error]);
+
+  useEffect(() => {
+    if (error === null) {
+      return;
+    }
+    Notiflix.Notify.failure(`some error ${error}`);
+  }, [error]);
 
   return (
-    <div className="mainWrapper">
-      <div className="list">
-        <h2>movies</h2>
-        {isLoading === true && <p>loading ...</p>}
-        {Array.isArray(movies) &&
-          movies.map(movie => {
-            return (
-              <Link
-                key={movie.id}
-                className="movieItem"
-                to={`/movies/${movie.id}`}
-              >
-                <h3>{movie.title}</h3>
-                <p>{movie.body}</p>
-              </Link>
-            );
-          })}
-      </div>
+    <div className="list">
+      <h2>Trending today</h2>
+      {isLoading === true && <Loader />}
+      {movies.map(movie => {
+        return (
+          <Link key={movie.id} className="movieItem" to={`/movies/${movie.id}`}>
+            <h3>{movie.title}</h3>
+          </Link>
+        );
+      })}
     </div>
   );
 }

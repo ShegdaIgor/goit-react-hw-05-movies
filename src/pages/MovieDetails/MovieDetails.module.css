@@ -1,0 +1,54 @@
+.movieWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px;
+}
+
+.imgMovie {
+  width: 200px;
+}
+
+.movieTitle {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+.userScore {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.movieOverview {
+  font-weight: 400;
+  font-size: 13px;
+  list-style-type: none;
+}
+
+.genresMovies {
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+.movieItem {
+  margin-left: 30px;
+}
+
+.GoBack {
+  display: block;
+  margin-left: 10px;
+  text-decoration: none;
+  background-color: white;
+  list-style-type: none;
+  border: none;
+  cursor: pointer;
+}
+
+.addInfo {
+  margin-left: 20px;
+}
